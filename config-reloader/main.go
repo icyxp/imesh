@@ -138,14 +138,14 @@ func (r *reloader) Stop() {
 func (r *reloader) Reload() {
 	cb := backoff.WithContext(backoff.NewExponentialBackOff(), r.ctx)
 	err := backoff.RetryNotify(r.reload, cb, func(err error, next time.Duration) {
-		r.logger.Warn("Failed to reload vistio configuration",
+		r.logger.Warn("Failed to reload imesh configuration",
 			zap.Error(err),
 			zap.Duration("next retry", next),
 		)
 	})
 
 	if err != nil {
-		r.logger.Error("Failed to reload vistio configuration", zap.Error(err))
+		r.logger.Error("Failed to reload imesh configuration", zap.Error(err))
 	} else {
 		r.logger.Info("Reloaded successfully")
 	}
