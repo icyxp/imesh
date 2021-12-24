@@ -1,0 +1,16 @@
+# System
+.DS_Store
+
+# Generated
+/.jshintignore
+/.jshintrc
+/dist
+npm-debug.log
+node_modules
+
+# Typings
+*.ts
+
+# Temporary Files and Backups
+*.swp
+*.*~
