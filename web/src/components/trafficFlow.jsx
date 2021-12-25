@@ -10,7 +10,8 @@ import 'vizceral-react/dist/vizceral.css';
 import keypress from 'keypress.js';
 import queryString from 'query-string';
 import request from 'superagent';
-
+import { Alert } from 'react-bootstrap';
+import AppConstants from '../appConstants';
 
 import './trafficFlow.css';
 import Breadcrumbs from './breadcrumbs';
@@ -28,7 +29,6 @@ import PhysicsOptions from './physicsOptions';
 import ReplayClock from './replayClock';
 import ServerStatus from './serverStatus';
 import trafficActions from './trafficActions';
-import './trafficFlow.css';
 import trafficStore from './trafficStore';
 
 
