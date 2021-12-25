@@ -6,6 +6,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var Dotenv = require('dotenv-webpack');
 
 module.exports = {
+  mode: 'development',
   devtool: 'source-map',
   entry: './src/app.jsx',
   output: {
@@ -14,25 +15,38 @@ module.exports = {
     filename: 'vizceral.[hash].bundle.js'
   },
   resolve: {
-    extensions: ['', '.jsx', '.js'],
-    modulesDirectories: ['node_modules'],
-    fallback: path.join(__dirname, 'node_modules')
+    extensions: ['.jsx', '.js'],
+    // modulesDirectories: ['node_modules'],
+    // fallback: path.join(__dirname, 'node_modules')
   },
-  resolveLoader: { fallback: path.join(__dirname, 'node_modules') },
+  // resolveLoader: { fallback: path.join(__dirname, 'node_modules') },
   module: {
-    loaders: [
+    rules: [
+      { test: /\.jsx$/,  exclude: /node_modules/, use: {
+        loader: 'babel-loader',
+      } },
       {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'babel'
+        test: /\.(png|woff2?)$/,
+        use: {
+          loader:'url-loader',
+          options: {
+            limit: 10000,
+            mimetype: 'application/font-woff'
+          }
+        }
       },
-      { test: /\.woff2?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
-      { test: /\.otf$/, loader: 'file-loader' },
-      { test: /\.ttf$/, loader: 'file-loader' },
-      { test: /\.eot$/, loader: 'file-loader' },
-      { test: /\.svg$/, loader: 'file-loader' },
-      { test: /\.html$/, loader: 'html' },
-      { test: /\.css$/, loader: 'style-loader!css-loader' }
+      { test: /\.(otf|ttf|eot|svg)$/, use: 'file-loader' },
+      {
+        test: /\.css$/,
+        use: [
+          // style-loader
+          { loader: 'style-loader' },
+          // css-loader
+          {
+            loader: 'css-loader',
+          },
+        ]
+      }
     ]
   },
   plugins: [
@@ -47,7 +61,7 @@ module.exports = {
       __HIDE_DATA__: !!process.env.HIDE_DATA
     }),
     new HtmlWebpackPlugin({
-      title: 'Vistio',
+      title: 'IMesh',
       template: './src/index.html',
       favicon: './src/favicon.ico',
       inject: true

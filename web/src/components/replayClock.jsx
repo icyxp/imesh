@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import OptionsPanel from './optionsPanel';
 
@@ -118,9 +119,9 @@ class ReplayClock extends React.Component {
 }
 
 ReplayClock.propTypes = {
-  time: React.PropTypes.number.isRequired,
-  maxOffset: React.PropTypes.number.isRequired,
-  offsetChanged: React.PropTypes.func
+  time: PropTypes.number,
+  maxOffset: PropTypes.number,
+  offsetChanged: PropTypes.func
 };
 
 export default ReplayClock;

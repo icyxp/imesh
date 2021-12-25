@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ReactHighcharts from 'react-highcharts';
 
@@ -182,9 +183,9 @@ class ConnectionChart extends React.Component {
 }
 
 ConnectionChart.propTypes = {
-  region: React.PropTypes.string.isRequired,
-  connection: React.PropTypes.object.isRequired,
-  config: React.PropTypes.object
+  region: PropTypes.string,
+  connection: PropTypes.object,
+  config: PropTypes.object
 };
 
 export default ConnectionChart;

@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class DetailsSubpanel extends React.Component {
   constructor (props) {
@@ -52,9 +53,9 @@ class DetailsSubpanel extends React.Component {
 }
 
 DetailsSubpanel.propTypes = {
-  title: React.PropTypes.string.isRequired,
-  expanded: React.PropTypes.bool,
-  badge: React.PropTypes.number
+  title: PropTypes.string,
+  expanded: PropTypes.bool,
+  badge: PropTypes.number
 };
 
 export default DetailsSubpanel;

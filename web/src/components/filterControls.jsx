@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
 import filterStore from './filterStore';
 import filterActions from './filterActions';

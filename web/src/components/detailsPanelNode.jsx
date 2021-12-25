@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ConnectionList from './connectionList';
 import DetailsSubpanel from './detailsSubpanel';
@@ -65,12 +66,12 @@ class DetailsPanelNode extends React.Component {
 }
 
 DetailsPanelNode.propTypes = {
-  closeCallback: React.PropTypes.func.isRequired,
-  zoomCallback: React.PropTypes.func.isRequired,
-  node: React.PropTypes.object.isRequired,
-  nodeClicked: React.PropTypes.func,
-  nodeSelected: React.PropTypes.bool.isRequired,
-  region: React.PropTypes.string
+  closeCallback: PropTypes.func,
+  zoomCallback: PropTypes.func,
+  node: PropTypes.object,
+  nodeClicked: PropTypes.func,
+  nodeSelected: PropTypes.bool,
+  region: PropTypes.string
 };
 
 DetailsPanelNode.defaultProps = {

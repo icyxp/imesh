@@ -1,11 +1,12 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import TWEEN from 'tween.js';
 
 import './loadingCover.css';
 
-const logo = require('url!./istio.png'); // eslint-disable-line import/no-extraneous-dependencies
+const logo = require('./istio.png'); // eslint-disable-line import/no-extraneous-dependencies
 
 const helperStyles = {
   display: 'inline-block',
@@ -80,7 +81,7 @@ class LoadingCover extends React.Component {
 }
 
 LoadingCover.propTypes = {
-  show: React.PropTypes.bool.isRequired
+  show: PropTypes.bool
 };
 
 export default LoadingCover;

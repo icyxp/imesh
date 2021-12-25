@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import React from 'react';
+import PropTypes from 'prop-types';
 import numeral from 'numeral';
 import { Table, Column, SortDirection } from 'react-virtualized';
 import 'react-virtualized/styles.css';
@@ -147,8 +148,8 @@ class ConnectionList extends React.Component {
 }
 
 ConnectionList.propTypes = {
-  direction: React.PropTypes.string.isRequired,
-  connections: React.PropTypes.array.isRequired
+  direction: PropTypes.string,
+  connections: PropTypes.array
 };
 
 export default ConnectionList;

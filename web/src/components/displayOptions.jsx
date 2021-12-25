@@ -1,6 +1,7 @@
 'use strict';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class DisplayOptions extends React.Component {
   constructor (props) {
@@ -43,8 +44,8 @@ class DisplayOptions extends React.Component {
 }
 
 DisplayOptions.propTypes = {
-  options: React.PropTypes.object.isRequired,
-  changedCallback: React.PropTypes.func.isRequired
+  options: PropTypes.object,
+  changedCallback: PropTypes.func
 };
 
 export default DisplayOptions;

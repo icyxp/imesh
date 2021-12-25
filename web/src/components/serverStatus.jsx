@@ -2,6 +2,7 @@
 
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import { Tooltip, OverlayTrigger } from 'react-bootstrap';
 
 import AppConstants from '../appConstants';
@@ -64,9 +65,9 @@ class ServerStatus extends React.Component {
 }
 
 ServerStatus.propTypes = {
-  endpoint: React.PropTypes.string.isRequired,
-  status: React.PropTypes.string.isRequired,
-  clientUpdatedTime: React.PropTypes.number
+  endpoint: PropTypes.string,
+  status: PropTypes.string,
+  clientUpdatedTime: PropTypes.number
 };
 
 export default ServerStatus;

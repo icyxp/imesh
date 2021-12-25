@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Vizceral from 'vizceral-react';
 
 
@@ -49,7 +50,7 @@ class CustomVizceral extends Vizceral {
 }
 
 CustomVizceral.propTypes = {
-  styles: React.PropTypes.object
+  styles: PropTypes.object
 };
 
 export default CustomVizceral;
