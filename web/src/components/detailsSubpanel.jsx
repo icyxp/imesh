@@ -1,23 +1,23 @@
 'use strict';
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 
 class DetailsSubpanel extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       expanded: props.expanded ? props.expanded : false
     };
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.expanded !== undefined) {
       this.setState({ expanded: nextProps.expanded });
     }
   }
 
-  render () {
+  render() {
     const badge = this.props.badge;
     const title = this.props.title.replace(/\s/g, '_');
     const headingId = `${title}Heading`;

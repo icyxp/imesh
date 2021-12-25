@@ -1,10 +1,9 @@
 'use strict';
 
-import _ from 'lodash';
 import EventEmitter from 'events';
-
-import AppDispatcher from '../appDispatcher';
+import _ from 'lodash';
 import AppConstants from '../appConstants';
+import AppDispatcher from '../appDispatcher';
 
 const CHANGE_EVENT = 'change';
 
@@ -134,65 +133,65 @@ const clearFilters = function () {
 resetDefaults();
 
 class FilterStore extends EventEmitter {
-  constructor () {
+  constructor() {
     super();
     this.requests = {};
 
     AppDispatcher.register((payload) => {
       const action = payload.action;
       switch (action.actionType) {
-      case AppConstants.ActionTypes.UPDATE_FILTER:
-        this.updateFilters(action.data);
-        this.emit(CHANGE_EVENT);
-        break;
-      case AppConstants.ActionTypes.UPDATE_DEFAULT_FILTERS:
-        this.updateDefaultFilters(action.data);
-        this.emit(CHANGE_EVENT);
-        break;
-      case AppConstants.ActionTypes.RESET_FILTERS:
-        resetDefaults();
-        this.emit(CHANGE_EVENT);
-        break;
-      case AppConstants.ActionTypes.CLEAR_FILTERS:
-        clearFilters();
-        this.emit(CHANGE_EVENT);
-        break;
-      default:
-        return true;
+        case AppConstants.ActionTypes.UPDATE_FILTER:
+          this.updateFilters(action.data);
+          this.emit(CHANGE_EVENT);
+          break;
+        case AppConstants.ActionTypes.UPDATE_DEFAULT_FILTERS:
+          this.updateDefaultFilters(action.data);
+          this.emit(CHANGE_EVENT);
+          break;
+        case AppConstants.ActionTypes.RESET_FILTERS:
+          resetDefaults();
+          this.emit(CHANGE_EVENT);
+          break;
+        case AppConstants.ActionTypes.CLEAR_FILTERS:
+          clearFilters();
+          this.emit(CHANGE_EVENT);
+          break;
+        default:
+          return true;
       }
       return true;
     });
   }
 
-  addChangeListener (cb) {
+  addChangeListener(cb) {
     this.on(CHANGE_EVENT, cb);
   }
 
-  removeChangeListener (cb) {
+  removeChangeListener(cb) {
     this.removeListener(CHANGE_EVENT, cb);
   }
 
-  getDefaultFilters () {
+  getDefaultFilters() {
     return defaultFilters;
   }
 
-  getFilters () {
+  getFilters() {
     return store.filters;
   }
 
-  getFiltersArray () {
+  getFiltersArray() {
     return _.map(store.filters, filter => _.clone(filter));
   }
 
-  getStates () {
+  getStates() {
     return store.states;
   }
 
-  getChangedFilters () {
+  getChangedFilters() {
     return _.filter(store.filters, filter => filter.value !== defaultFilters[filter.name].value);
   }
 
-  getStepFromValue (name) {
+  getStepFromValue(name) {
     const index = _.findIndex(store.states[name], step => step.value === store.filters[name].value);
     if (index === -1) {
       return _.findIndex(store.states[name], step => step.value === defaultFilters[name].value);
@@ -200,25 +199,25 @@ class FilterStore extends EventEmitter {
     return index;
   }
 
-  updateFilters (filters) {
+  updateFilters(filters) {
     Object.keys(filters).forEach((filter) => {
       store.filters[filter].value = filters[filter];
     });
   }
 
-  updateDefaultFilters (defaults) {
+  updateDefaultFilters(defaults) {
     _.merge(defaultFilters, defaults);
   }
 
-  isLastClass (clas) {
+  isLastClass(clas) {
     return store.filters.clas.value.length === 1 && store.filters.clas.value.indexOf(clas) === 0;
   }
 
-  isDefault () {
+  isDefault() {
     return _.every(store.filters, filter => filter.value === defaultFilters[filter.name].value);
   }
 
-  isClear () {
+  isClear() {
     return _.every(store.filters, filter => filter.value === noFilters[filter.name].value);
   }
 }

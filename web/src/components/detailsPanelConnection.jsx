@@ -2,17 +2,15 @@
 
 'use strict';
 
-import React from 'react';
-import PropTypes from 'prop-types';
 import numeral from 'numeral';
-
-import Notices from './notices';
+import PropTypes from 'prop-types';
+import React from 'react';
 import ConnectionChart from './connectionChart';
-
 import './detailsPanel.css';
+import Notices from './notices';
 
 class DetailsPanelConnection extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       region: props.region,
@@ -20,14 +18,14 @@ class DetailsPanelConnection extends React.Component {
     };
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setState({
       region: nextProps.region,
       connection: nextProps.connection
     });
   }
 
-  render () {
+  render() {
     const connection = this.state.connection;
     const notices = (connection && connection.notices) || [];
 
@@ -63,7 +61,7 @@ DetailsPanelConnection.propTypes = {
 };
 
 DetailsPanelConnection.defaultProps = {
-  nodeClicked: () => {},
+  nodeClicked: () => { },
   region: ''
 };
 

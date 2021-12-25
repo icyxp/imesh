@@ -1,12 +1,11 @@
 'use strict';
 
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import './optionsPanel.css';
 
 class OptionsPanel extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       showOptions: false,
@@ -14,11 +13,11 @@ class OptionsPanel extends React.Component {
     };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.setState({ alignRight: this.shouldAlignRight() });
   }
 
-  shouldAlignRight () {
+  shouldAlignRight() {
     const elm = this.refs.optionsPanel;
     const boundingRect = elm.getBoundingClientRect();
     const panelBoundingRect = elm.children[1].getBoundingClientRect();
@@ -27,31 +26,31 @@ class OptionsPanel extends React.Component {
     return !isEntirelyVisible;
   }
 
-  clearDocumentClick () {
+  clearDocumentClick() {
     if (this.documentClickHandler) {
       document.removeEventListener('click', this.documentClickHandler, false);
       this.documentClickHandler = undefined;
     }
   }
 
-  setDocumentClick () {
+  setDocumentClick() {
     this.clearDocumentClick();
     this.documentClickHandler = this.handleDocumentClick.bind(this);
     document.addEventListener('click', this.documentClickHandler, false);
   }
 
-  optionsDropdownClicked () {
+  optionsDropdownClicked() {
     this.setState({
       showOptions: !this.state.showOptions,
       alignRight: this.shouldAlignRight()
     });
   }
 
-  handleDocumentClick () {
+  handleDocumentClick() {
     this.setState({ showOptions: false });
   }
 
-  componentWillUpdate (nextProps, nextState) {
+  componentWillUpdate(nextProps, nextState) {
     if (nextState.showOptions !== this.state.showOptions) {
       if (nextState.showOptions) {
         this.setDocumentClick();
@@ -61,12 +60,12 @@ class OptionsPanel extends React.Component {
     }
   }
 
-  handleClick (event) {
+  handleClick(event) {
     event.stopPropagation();
     event.nativeEvent.stopImmediatePropagation();
   }
 
-  render () {
+  render() {
     const panelStyles = {
       visibility: !this.state.showOptions ? 'hidden' : undefined,
       border: '1px solid grey'
@@ -85,7 +84,7 @@ class OptionsPanel extends React.Component {
           </a>
         </div>
         <div className="options-panel-content" style={panelStyles} onClick={this.handleClick}>
-          { this.props.children }
+          {this.props.children}
         </div>
       </div>
     );

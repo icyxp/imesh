@@ -1,16 +1,14 @@
 'use strict';
 
-import React from 'react';
-
 import PropTypes from 'prop-types';
-import { Tooltip, OverlayTrigger } from 'react-bootstrap';
-
+import React from 'react';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import AppConstants from '../appConstants';
-
 import './serverStatus.css';
 
+
 class ServerStatus extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -20,11 +18,11 @@ class ServerStatus extends React.Component {
     };
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setState(nextProps);
   }
 
-  render () {
+  render() {
     const msToTimeAgo = (ms) => {
       if (!ms) { return 'Unknown'; }
       const secs = Math.round(ms / 1000);

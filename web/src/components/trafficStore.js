@@ -5,7 +5,6 @@ import _ from 'lodash';
 import AppConstants from '../appConstants';
 import AppDispatcher from '../appDispatcher';
 
-
 const CHANGE_EVENT = 'change';
 const OFFSET_CHANGE_EVENT = 'offset_changed';
 

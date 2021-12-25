@@ -378,3 +378,9 @@ a.accordion-toggle {
   background-color: var(--colorPageBackground);
   border-left: 2px solid var(--colorNormal) ;
 }
+
+@media (min-width: 600px) {
+  .container, .container-sm, .container-md, .container-lg, .container-xl {
+    max-width: 3000px;
+  }
+}

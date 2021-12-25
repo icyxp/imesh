@@ -1,16 +1,14 @@
 'use strict';
 
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import ConnectionList from './connectionList';
+import './detailsPanel.css';
 import DetailsSubpanel from './detailsSubpanel';
 import Notices from './notices';
 
-import './detailsPanel.css';
-
 class DetailsPanelNode extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       node: props.node,
@@ -19,7 +17,7 @@ class DetailsPanelNode extends React.Component {
     };
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     const newState = {
       region: nextProps.region,
       node: nextProps.node
@@ -32,7 +30,7 @@ class DetailsPanelNode extends React.Component {
     this.setState(newState);
   }
 
-  render () {
+  render() {
     const node = this.state.node;
     const notices = (node && node.notices) || [];
     let zoomClassName = 'glyphicon clickable zoom-icon ';
@@ -43,20 +41,20 @@ class DetailsPanelNode extends React.Component {
       <div className="details-panel">
         <div className="subsection">
           <div className="details-panel-title">{node.getName()} <span className="text-muted">{node.class}</span>
-            { node && node.nodes && node.nodes.length > 0 ?
-            <span title={zoomTitle} className={zoomClassName} onClick={this.props.zoomCallback}></span>
-            : undefined}
+            {node && node.nodes && node.nodes.length > 0 ?
+              <span title={zoomTitle} className={zoomClassName} onClick={this.props.zoomCallback}></span>
+              : undefined}
           </div>
           <div className="details-panel-close" onClick={this.props.closeCallback}>
             <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>
           </div>
         </div>
         <Notices notices={notices} />
-        { node && !node.isEntryNode() ?
-        <DetailsSubpanel title="Incoming Connections" badge={node.incomingConnections.length}>
-          <ConnectionList key={node.getName()} connections={node.incomingConnections} direction="incoming" nodeClicked={clickedNode => this.props.nodeClicked(clickedNode)} />
-        </DetailsSubpanel>
-        : undefined }
+        {node && !node.isEntryNode() ?
+          <DetailsSubpanel title="Incoming Connections" badge={node.incomingConnections.length}>
+            <ConnectionList key={node.getName()} connections={node.incomingConnections} direction="incoming" nodeClicked={clickedNode => this.props.nodeClicked(clickedNode)} />
+          </DetailsSubpanel>
+          : undefined}
         <DetailsSubpanel title="Outgoing Connections" badge={node.outgoingConnections.length}>
           <ConnectionList key={node.getName()} connections={node.outgoingConnections} direction="outgoing" nodeClicked={clickedNode => this.props.nodeClicked(clickedNode)} />
         </DetailsSubpanel>
@@ -75,7 +73,7 @@ DetailsPanelNode.propTypes = {
 };
 
 DetailsPanelNode.defaultProps = {
-  nodeClicked: () => {},
+  nodeClicked: () => { },
   region: ''
 };
 

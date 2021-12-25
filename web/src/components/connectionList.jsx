@@ -1,10 +1,10 @@
 'use strict';
 
 import _ from 'lodash';
-import React from 'react';
-import PropTypes from 'prop-types';
 import numeral from 'numeral';
-import { Table, Column, SortDirection } from 'react-virtualized';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { Column, SortDirection, Table } from 'react-virtualized';
 import 'react-virtualized/styles.css';
 
 const nameRenderer = function (data) {
@@ -24,8 +24,8 @@ const nameRenderer = function (data) {
       {data.cellData}
       {
         mostSevereNotice ?
-        <span style={styles} className={className} />
-        : undefined
+          <span style={styles} className={className} />
+          : undefined
       }
     </span>);
 };
@@ -67,7 +67,7 @@ const sorters = {
 };
 
 class ConnectionList extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       connections: props.connections,
@@ -76,13 +76,13 @@ class ConnectionList extends React.Component {
     };
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setState({
       connections: nextProps.connections
     });
   }
 
-  render () {
+  render() {
     const headerHeight = 30;
     let estimatedRowHeight = 25;
     const maxTableHeight = 300;
@@ -120,25 +120,25 @@ class ConnectionList extends React.Component {
 
     return (
       connectionRows.length > 0 ?
-      <div className="connection-list">
-        <Table
-          ref="flexTable"
-          width={300}
-          height={tableHeight}
-          headerHeight={headerHeight}
-          rowHeight={25}
-          rowCount={connectionRows.length}
-          rowGetter={({ index }) => connectionRows[index]}
-          sortBy={this.state.sortBy}
-          sortDirection={this.state.sortDirection}
-          sort={this.sort}
-        >
-          <Column label="Service" dataKey="name" cellRenderer={nameRenderer} width={150} />
-          <Column label="RPS" dataKey="total" cellRenderer={totalRenderer} width={70} />
-          <Column label="Errors" dataKey="errorRate" cellRenderer={errorRenderer} width={70}/>
-        </Table>
-      </div>
-      : <span>None.</span>
+        <div className="connection-list">
+          <Table
+            ref="flexTable"
+            width={300}
+            height={tableHeight}
+            headerHeight={headerHeight}
+            rowHeight={25}
+            rowCount={connectionRows.length}
+            rowGetter={({ index }) => connectionRows[index]}
+            sortBy={this.state.sortBy}
+            sortDirection={this.state.sortDirection}
+            sort={this.sort}
+          >
+            <Column label="Service" dataKey="name" cellRenderer={nameRenderer} width={150} />
+            <Column label="RPS" dataKey="total" cellRenderer={totalRenderer} width={70} />
+            <Column label="Errors" dataKey="errorRate" cellRenderer={errorRenderer} width={70} />
+          </Table>
+        </div>
+        : <span>None.</span>
     );
   }
 

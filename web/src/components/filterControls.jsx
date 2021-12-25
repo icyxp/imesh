@@ -2,17 +2,15 @@
 
 import _ from 'lodash';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Checkbox, CheckboxGroup } from 'react-checkbox-group';
-import filterStore from './filterStore';
-import filterActions from './filterActions';
-import trafficStore from './trafficStore';
-import Stepper from './stepper';
-
 import './controls.css';
+import filterActions from './filterActions';
+import filterStore from './filterStore';
+import Stepper from './stepper';
+import trafficStore from './trafficStore';
 
 class FilterControls extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       filters: filterStore.getFilters(),
@@ -22,23 +20,23 @@ class FilterControls extends React.Component {
     };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     filterStore.addChangeListener(this.onChangeFilters.bind(this));
     trafficStore.addChangeListener(this.onChangeTraffic.bind(this));
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     filterStore.removeChangeListener(this.onChangeFilters.bind(this));
     trafficStore.removeChangeListener(this.onChangeTraffic.bind(this));
   }
 
-  onChangeFilters () {
+  onChangeFilters() {
     this.setState({
       filters: filterStore.getFilters()
     });
   }
 
-  onChangeTraffic () {
+  onChangeTraffic() {
     const traffic = trafficStore.getTraffic();
     if (!traffic.nodes) {
       return;
@@ -68,55 +66,55 @@ class FilterControls extends React.Component {
     }
   }
 
-  rpsChanged (step) {
+  rpsChanged(step) {
     filterActions.updateFilter({ rps: this.state.states.rps[step].value });
   }
 
-  errorChanged (step) {
+  errorChanged(step) {
     filterActions.updateFilter({ error: this.state.states.error[step].value });
   }
 
-  classChanged (value) {
+  classChanged(value) {
     filterActions.updateFilter({ clas: value });
   }
 
-  noticeChanged (step) {
+  noticeChanged(step) {
     filterActions.updateFilter({ notice: this.state.states.notice[step].value });
   }
 
-  resetFilters () {
+  resetFilters() {
     filterActions.resetFilters();
   }
 
-  render () {
+  render() {
     const defaultFilters = filterStore.isDefault();
 
     return (
-        <div className="vizceral-controls-panel">
-          <div className="vizceral-control">
-            <span className="vizceral-control-group-title">Connections</span>
-            <div className="vizceral-control-group">
-              <span>RPS</span>
-              <Stepper steps={this.state.states.rps} selectedStep={filterStore.getStepFromValue('rps')} changeCallback={(step) => { this.rpsChanged(step); }} />
-              <span>Error(%)</span>
-              <Stepper steps={this.state.states.error} selectedStep={filterStore.getStepFromValue('error')} changeCallback={(step) => { this.errorChanged(step); }} />
-              <span>Notices</span>
-              <Stepper steps={this.state.states.notice} selectedStep={filterStore.getStepFromValue('notice')} changeCallback={(step) => { this.noticeChanged(step); }} />
-            </div>
-            <span className="vizceral-control-group-title">Nodes</span>
-            <div className="vizceral-control-group">
-              <span>Classes</span>
-              <CheckboxGroup name="class-filter" value={this.state.filters.clas.value} onChange={(value) => { this.classChanged(value); }}>
+      <div className="vizceral-controls-panel">
+        <div className="vizceral-control">
+          <span className="vizceral-control-group-title">Connections</span>
+          <div className="vizceral-control-group">
+            <span>RPS</span>
+            <Stepper steps={this.state.states.rps} selectedStep={filterStore.getStepFromValue('rps')} changeCallback={(step) => { this.rpsChanged(step); }} />
+            <span>Error(%)</span>
+            <Stepper steps={this.state.states.error} selectedStep={filterStore.getStepFromValue('error')} changeCallback={(step) => { this.errorChanged(step); }} />
+            <span>Notices</span>
+            <Stepper steps={this.state.states.notice} selectedStep={filterStore.getStepFromValue('notice')} changeCallback={(step) => { this.noticeChanged(step); }} />
+          </div>
+          <span className="vizceral-control-group-title">Nodes</span>
+          <div className="vizceral-control-group">
+            <span>Classes</span>
+            <CheckboxGroup name="class-filter" value={this.state.filters.clas.value} onChange={(value) => { this.classChanged(value); }}>
               {
                 this.state.classes.map(clas => (<div key={clas}><label><Checkbox value={clas} disabled={filterStore.isLastClass(clas)} />&nbsp;{clas}</label></div>))
               }
-              </CheckboxGroup>
-            </div>
-          </div>
-          <div className="vizceral-control">
-            <button type="button" className="btn btn-default btn-block btn-xs" disabled={defaultFilters} onClick={this.resetFilters.bind(this)}>Reset Filters</button>
+            </CheckboxGroup>
           </div>
         </div>
+        <div className="vizceral-control">
+          <button type="button" className="btn btn-default btn-block btn-xs" disabled={defaultFilters} onClick={this.resetFilters.bind(this)}>Reset Filters</button>
+        </div>
+      </div>
     );
   }
 }

@@ -1,9 +1,8 @@
 'use strict';
 
-import React from 'react';
 import PropTypes from 'prop-types';
+import React from 'react';
 import TWEEN from 'tween.js';
-
 import './loadingCover.css';
 
 const logo = require('./istio.png'); // eslint-disable-line import/no-extraneous-dependencies
@@ -23,7 +22,7 @@ const loaderStyles = {
 
 
 class LoadingCover extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
       show: props.show,
@@ -31,7 +30,7 @@ class LoadingCover extends React.Component {
     };
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.show !== this.props.show) {
       if (!nextProps.show) {
         // If transitioning to not show...
@@ -54,7 +53,7 @@ class LoadingCover extends React.Component {
     }
   }
 
-  render () {
+  render() {
     const wrapperStyles = {
       display: this.state.showing ? 'initial' : 'none'
     };
@@ -65,14 +64,14 @@ class LoadingCover extends React.Component {
 
     return (
       <div className="loading-cover-wrapper" style={wrapperStyles}>
-        { this.state.showing
+        {this.state.showing
           ? <div className="loading-cover" style={coverStyles}>
-              <span style={helperStyles}></span>
-              <div style={loaderStyles}>
-                <img className="loading-image" src={logo} />
-                Loading...
-              </div>
+            <span style={helperStyles}></span>
+            <div style={loaderStyles}>
+              <img className="loading-image" src={logo} />
+              Loading...
             </div>
+          </div>
           : undefined
         }
       </div>

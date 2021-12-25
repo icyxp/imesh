@@ -1,11 +1,9 @@
 'use strict';
 
 import _ from 'lodash';
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import ReactHighcharts from 'react-highcharts';
-
 import trafficStore from './trafficStore';
 
 const defaultConfig = {
@@ -85,7 +83,7 @@ const defaultConfig = {
 };
 
 class ConnectionChart extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     const config = props.config ? _.merge(defaultConfig, props.config) : defaultConfig;
@@ -105,7 +103,7 @@ class ConnectionChart extends React.Component {
     };
   }
 
-  getHistory (region, source, target, until) {
+  getHistory(region, source, target, until) {
     const connectionHistory = trafficStore.getConnectionHistoryRange(region, source, target, 0, until);
 
     const totalHistory = _.map(connectionHistory, connection => ({
@@ -125,11 +123,11 @@ class ConnectionChart extends React.Component {
     this.setState({ initialized: false });
   };
 
-  componentDidMount () {
+  componentDidMount() {
     trafficStore.addOffsetChangeListener(this.offsetChanged);
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     const connection = nextProps.connection;
 
     const chart = this.chart.getChart();
@@ -140,8 +138,8 @@ class ConnectionChart extends React.Component {
     });
 
     if (!this.state.initialized ||
-        this.state.connection.source.name !== nextProps.connection.source.name ||
-        this.state.connection.target.name !== nextProps.connection.target.name) {
+      this.state.connection.source.name !== nextProps.connection.source.name ||
+      this.state.connection.target.name !== nextProps.connection.target.name) {
       const history = this.getHistory(
         nextProps.region || this.state.region,
         nextProps.connection.source.name,
@@ -173,7 +171,7 @@ class ConnectionChart extends React.Component {
     chart.redraw();
   }
 
-  render () {
+  render() {
     return (
       <div className="connection-chart">
         <ReactHighcharts isPureConfig={true} config={this.state.config} ref={(chart) => { this.chart = chart; }}></ReactHighcharts>

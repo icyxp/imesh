@@ -1,9 +1,9 @@
 'use strict';
 
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import './locator.css';
+
 
 const style = {
   display: 'inline-block',
@@ -17,30 +17,30 @@ const listStyle = {
 };
 
 class Locator extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
     };
   }
 
-  locatorChanged (value) {
+  locatorChanged(value) {
     this.props.changeCallback(value);
   }
 
-  clearFilterClicked () {
+  clearFilterClicked() {
     if (this.props.clearFilterCallback) {
       this.props.clearFilterCallback();
     }
   }
 
-  render () {
+  render() {
     const totalServices = this.props.matches.totalMatches > -1 ? this.props.matches.totalMatches : this.props.matches.total;
     const filteredServices = totalServices - (this.props.matches.visibleMatches > -1 ? this.props.matches.visibleMatches : this.props.matches.visible);
 
     return (
       <div style={style}>
         <div style={listStyle}>{totalServices} services / {filteredServices} filtered &nbsp;
-          { filteredServices > 0 ?
+          {filteredServices > 0 ?
             <span className="clickable" onClick={this.clearFilterClicked.bind(this)}>(show)</span>
             : undefined
           }

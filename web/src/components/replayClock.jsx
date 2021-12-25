@@ -1,18 +1,16 @@
 'use strict';
 
-import React from 'react';
 import PropTypes from 'prop-types';
-
+import React from 'react';
 import OptionsPanel from './optionsPanel';
-
 import './replayClock.css';
 
 class ReplayClock extends React.Component {
   static defaultProps = {
-    offsetChanged: () => {}
+    offsetChanged: () => { }
   }
 
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -26,7 +24,7 @@ class ReplayClock extends React.Component {
     this.panel = undefined;
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.time === this.props.time) {
       return;
     }
@@ -81,13 +79,13 @@ class ReplayClock extends React.Component {
     }
   };
 
-  render () {
+  render() {
     const currentDate = new Date(this.state.time);
 
     const dateToString = (date) => {
       const format = value => (`0${value}`).slice(-2);
       return `${date.getFullYear()}/${format(date.getMonth() + 1)}/${format(date.getDate())
-            } ${format(date.getHours())}:${format(date.getMinutes())}:${format(date.getSeconds())}`;
+        } ${format(date.getHours())}:${format(date.getMinutes())}:${format(date.getSeconds())}`;
     };
 
     const offsetToString = (offset) => {

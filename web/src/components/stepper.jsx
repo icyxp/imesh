@@ -1,20 +1,20 @@
 'use strict';
 
+import PropTypes from 'prop-types';
 import React from 'react';
-import PropTypes from 'prop-types'
 
 class Stepper extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.state = {
     };
   }
 
-  stepChanged (index) {
+  stepChanged(index) {
     this.props.changeCallback(index);
   }
 
-  render () {
+  render() {
     return (
       <ol className="stepper">
         {

@@ -2,18 +2,14 @@
 
 import keypress from 'keypress.js';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 import queryString from 'query-string';
 import React from 'react';
-import PropTypes from 'prop-types';
+import { Alert } from 'react-bootstrap';
+import request from 'superagent';
 import TWEEN from 'tween.js'; // Start TWEEN updates for sparklines and loading screen fading out
 import 'vizceral-react/dist/vizceral.css';
-import keypress from 'keypress.js';
-import queryString from 'query-string';
-import request from 'superagent';
-import { Alert } from 'react-bootstrap';
 import AppConstants from '../appConstants';
-
-import './trafficFlow.css';
 import Breadcrumbs from './breadcrumbs';
 import CustomVizceral from './customVizceral';
 import DetailsPanelConnection from './detailsPanelConnection';
@@ -29,10 +25,8 @@ import PhysicsOptions from './physicsOptions';
 import ReplayClock from './replayClock';
 import ServerStatus from './serverStatus';
 import trafficActions from './trafficActions';
+import './trafficFlow.css';
 import trafficStore from './trafficStore';
-
-
-
 
 
 const listener = new keypress.Listener();
