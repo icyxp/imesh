@@ -15,7 +15,7 @@ class CustomVizceral extends Vizceral {
 
   shouldComponentUpdate(nextProps) {
     if (nextProps.styles) {
-      if (this.shouldStylesUpdate(nextProps.styles)) {
+      if (this.shouldStylesUpdate(nextProps.styles)) {       
         this.setState({ styles: nextProps.styles });
         this.vizceral.updateStyles({ colorTraffic: nextProps.styles });
         this.refreshNodes();

@@ -36,7 +36,7 @@ class DetailsPanelConnection extends React.Component {
     return (
       <div className="details-panel">
         <div className="subsection">
-          <div className="details-panel-title">{connection.getName()}
+          <div className="details-panel-title">{connection.getName().replace('--','-->')}
           </div>
           <div className="details-panel-close" onClick={this.props.closeCallback}>
             <span className="glyphicon glyphicon-remove" aria-hidden="true"></span>

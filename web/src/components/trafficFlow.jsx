@@ -317,12 +317,12 @@ class TrafficFlow extends React.Component {
     this.fetchData();
   };
 
-  resetLayoutButtonClicked = () => {
-    const g = this.state.currentGraph;
-    if (g != null) {
-      g._relayout();
-    }
-  }
+  // resetLayoutButtonClicked = () => {
+  //   const g = this.state.currentGraph;
+  //   if (g != null) {
+  //     g._relayout();
+  //   }
+  // }
 
   dismissAlert = () => {
     this.setState({ redirectedFrom: undefined });
@@ -362,7 +362,7 @@ class TrafficFlow extends React.Component {
             <OptionsPanel title="Filters"><FilterControls /></OptionsPanel>
             <OptionsPanel title="Display"><DisplayOptions options={this.state.displayOptions} changedCallback={this.displayOptionsChanged} /></OptionsPanel>
             <OptionsPanel title="Physics"><PhysicsOptions options={this.state.currentGraph_physicsOptions} changedCallback={this.physicsOptionsChanged} /></OptionsPanel>
-            <a role="button" className="reset-layout-link" onClick={this.resetLayoutButtonClicked}>Reload Layout</a><br />
+            {/* <a role="button" className="reset-layout-link" onClick={this.resetLayoutButtonClicked}>Reload Layout</a><br /> */}
           </div>
         </div>
         <div className="service-traffic-map">

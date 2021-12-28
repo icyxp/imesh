@@ -3,7 +3,7 @@
 'use strict';
 
 import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.css';
+import './bootstrap.css';
 import React from 'react'; // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom';
 import WebFont from 'webfontloader';

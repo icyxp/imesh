@@ -38,7 +38,7 @@ const store = {
     clas: {
       name: 'clas',
       type: 'node',
-      passes: (object, value) => value.length <= 0 || value.indexOf(object.class || '') >= 0,
+      passes: (object, value) => value.length <= 0 || value.indexOf(object.ns || '') >= 0,
       value: []
     },
     notice: {
@@ -200,6 +200,9 @@ class FilterStore extends EventEmitter {
   }
 
   updateFilters(filters) {
+    console.log('updateFilters:', filters)
+    console.log('store:', store.filters)
+    
     Object.keys(filters).forEach((filter) => {
       store.filters[filter].value = filters[filter];
     });

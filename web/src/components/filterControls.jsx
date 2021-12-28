@@ -48,7 +48,7 @@ class FilterControls extends React.Component {
           return [];
         }
 
-        return _.flatten(_.map(nodes, node => (node.class ? node.class : '')).concat(_.map(nodes, node => self(node.nodes, self))));
+        return _.flatten(_.map(nodes, node => (node.ns ? node.ns : '')).concat(_.map(nodes, node => self(node.nodes, self))));
       }
       return [];
     };
@@ -67,6 +67,7 @@ class FilterControls extends React.Component {
   }
 
   rpsChanged(step) {
+    console.log('rps:',step, this.state.states.rps[step].value)
     filterActions.updateFilter({ rps: this.state.states.rps[step].value });
   }
 
@@ -75,6 +76,7 @@ class FilterControls extends React.Component {
   }
 
   classChanged(value) {
+    console.log('value:', value)
     filterActions.updateFilter({ clas: value });
   }
 
@@ -88,7 +90,7 @@ class FilterControls extends React.Component {
 
   render() {
     const defaultFilters = filterStore.isDefault();
-
+    
     return (
       <div className="vizceral-controls-panel">
         <div className="vizceral-control">
@@ -103,7 +105,7 @@ class FilterControls extends React.Component {
           </div>
           <span className="vizceral-control-group-title">Nodes</span>
           <div className="vizceral-control-group">
-            <span>Classes</span>
+            <span>Namespaces</span>
             <CheckboxGroup name="class-filter" value={this.state.filters.clas.value} onChange={(value) => { this.classChanged(value); }}>
               {
                 this.state.classes.map(clas => (<div key={clas}><label><Checkbox value={clas} disabled={filterStore.isLastClass(clas)} />&nbsp;{clas}</label></div>))
