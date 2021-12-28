@@ -209,7 +209,7 @@ class TrafficFlow extends React.Component {
       this.state.currentView[1] !== nextState.currentView[1] ||
       this.state.highlightedObject !== nextState.highlightedObject) {
       const titleArray = (nextState.currentView || []).slice(0);
-      titleArray.unshift('Vistio');
+      titleArray.unshift('IMesh');
       document.title = titleArray.join(' / ');
 
       if (this.poppedState) {
