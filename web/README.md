@@ -1,5 +1,5 @@
 # Imesh Web [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-[icyxp/imesh/web](https://github.com/icyxp/imesh/web) web front-end application  
+[icyxp/imesh/web](https://github.com/icyxp/imesh/tree/main/web) web front-end application  
 
 This fork of Netflix's [vizceral-example](https://github.com/Netflix/vizceral-example) contains these new features:
 * Replaying
@@ -12,7 +12,7 @@ This fork of Netflix's [vizceral-example](https://github.com/Netflix/vizceral-ex
 
 # Install
 This application is one of promviz's components.  
-To install, please refer to [icyxp/imesh/web#install](https://github.com/icyxp/imesh/web#install).  
+To install, please refer to [icyxp/imesh/web#install](https://github.com/icyxp/imesh/tree/main/web#install).  
 
 # Install & Run Independently
 ```
