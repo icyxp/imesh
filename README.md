@@ -89,8 +89,6 @@ See [configuration.md](https://github.com/nmnellis/vistio/blob/master/documentat
 ## Troubleshooting
 
 1. Blank Vistio home page - this typically means that the Prometheus query at the `global` level is not returning any data or the data is not matching the labels in the source or target configuration. Grab the globalLevel query and test it against Prometheus directly to verify the data is correct. Example global level query `sum(rate(istio_requests_total[1m])) by (response_code)`
-![](https://github.com/nmnellis/vistio/blob/master/documentation/blank-screen.png)
-
 
 2. Cannot `Zoom` into clusters - If you are having trouble connecting your clusters to the global view, make sure the `target` values in the global configuration matches the cluster level name.
 
