@@ -1,0 +1,232 @@
+---
+# Source: imesh/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: imesh-api-config
+  namespace: default
+  labels:
+    app: imesh
+data:
+  imesh.yaml: |-
+    graphName: IMesh 
+
+    globalLevel:
+      maxVolume: 100    
+      clusterConnections:
+      - name: cluster1
+        prometheusURL: http://prometheus.istio-system:9090
+        query: sum(rate(istio_requests_total[1d])) by (response_code)
+        source:
+          replacement: Total Cluster1 Mesh Requests
+        status:
+          dangerRegex: ^5..$
+          label: response_code
+          warningRegex: ^4..$
+        target:
+          replacement: cluster1-mesh
+      - name: cluster2
+        prometheusURL: http://prometheus.istio-system:9090
+        query: sum(rate(istio_requests_total[1d])) by (response_code)
+        source:
+          replacement: Total Cluster2 Mesh Requests
+        status:
+          dangerRegex: ^5..$
+          label: response_code
+          warningRegex: ^4..$
+        target:
+          replacement: cluster2-mesh          
+
+    clusterLevel:
+    - cluster: cluster1-mesh
+      maxVolume: 100
+      serviceConnections:
+      - notices:
+        - name: HighErrorRate
+          severityThreshold:
+            error: 0.05
+            warning: 0.01
+          statusType: danger
+          title: '[{{ .value }}] High Error Rate'
+          promQL: "sum(rate(istio_requests_total{destination_service='{{ .service }}',response_code=~'{{ .code }}'}[1m])) by (source_workload,source_workload_namespace,destination_service,response_code)"
+        prometheusURL: http://prometheus.istio-system:9090
+        query: sum(rate(istio_requests_total[1d])) by (source_canonical_service,destination_service,response_code)
+        source:
+          label: source_canonical_service
+        status:
+          dangerRegex: ^5..$
+          label: response_code
+          warningRegex: ^4..$
+        target:
+          label: destination_service
+    - cluster: cluster2-mesh
+      maxVolume: 100
+      serviceConnections:
+      - notices:
+        - name: HighErrorRate
+          severityThreshold:
+            error: 0.05
+            warning: 0.01
+          statusType: danger
+          title: '[{{ .value }}] High Error Rate'
+          promQL: "sum(rate(istio_requests_total{destination_service='{{ .service }}',response_code=~'{{ .code }}'}[1m])) by (source_workload,source_workload_namespace,destination_service,response_code)"
+        prometheusURL: http://prometheus.istio-system:9090
+        query: sum(rate(istio_requests_total[1d]))  by (source_canonical_service,destination_service,response_code)
+        source:
+          label: source_canonical_service
+        status:
+          dangerRegex: ^5..$
+          label: response_code
+          warningRegex: ^4..$
+        target:
+          label: destination_service
+---
+# Source: imesh/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: imesh-api
+  namespace: default
+  labels:
+    app: imesh-api
+spec:
+  type: ClusterIP
+  selector:
+    app: imesh-api
+  ports:
+    - name: http
+      port: 9091
+      targetPort: 9091
+      protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: imesh-web
+  namespace: default
+  labels:
+    app: imesh-web
+spec:
+  type: ClusterIP
+  selector:
+    app: imesh-web
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+
+---
+# Source: imesh/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: imesh-web
+  namespace: default
+  labels:
+    app: imesh-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: imesh-web
+  template:
+    metadata:
+      labels:
+        app: imesh-web
+    spec:
+      containers:
+        - name: imesh
+          image: "quay.io/icyboy/imesh-web:1.0.0"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: IMESH_API
+              value: http://imesh.xxx.com/api/graph
+            - name: INTERVAL
+              value: "1000"
+            - name: MAX_REPLAY_OFFSET
+              value: "43200"
+          resources: {}
+---
+# Source: imesh/templates/statefulset.yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: imesh-api
+  namespace: default
+  labels:
+    heritage: Tiller
+    chart: "imesh-0.1.0"
+    app: imesh-api
+    release: imesh
+spec:
+  replicas: 1
+  serviceName: imesh
+  selector:
+    matchLabels:
+      app: imesh-api
+  template:
+    metadata:
+      labels:
+        app: imesh-api
+        release: imesh
+    spec:
+      containers:
+        - name: imesh-api
+          image: quay.io/icyboy/imesh-api:1.0.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - --config.file=/etc/imesh/imesh.yaml
+            - --log.level=info
+            - --storage.path=/var/imesh/data
+            - --storage.retention=168h
+            - --cache.size=1000
+            - --retrieval.scrape-interval=10s
+            - --retrieval.scrape-timeout=8s
+            - --api.port=9091
+          ports:
+            - containerPort: 9091
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 9091
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 9091
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+          volumeMounts:
+            - name: config
+              mountPath: /etc/imesh
+            - name: imesh-db
+              mountPath: /var/imesh/data
+              subPath: imesh-db
+          resources: {}
+        - name: reloader
+          image: quay.io/icyboy/config-reloader:1.0.0
+          imagePullPolicy: IfNotPresent
+          args:
+            - --config.reload-url=http://localhost:9091/reload
+            - --config.config-dir=/etc/imesh
+            - --config.log-level=info
+          resources:
+            limits:
+              cpu: 50m
+              memory: 64Mi
+            requests:
+              cpu: 20m
+              memory: 32Mi
+          volumeMounts:
+            - name: config
+              mountPath: /etc/imesh
+      volumes:
+        - name: config
+          configMap:
+            name: imesh-api-config
+        - name: imesh-db
+          emptyDir: {}

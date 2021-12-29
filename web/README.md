@@ -36,7 +36,7 @@ There are 2 ways to configure this application:
 
 You can customize this application's behavior with these variables:  
 ```
-UPDATE_URL: endpoint of imesh api server  
+IMESH_API: endpoint of imesh api server  
 INTERVAL: interval between fetches (ms)  
 MAX_REPLAY_OFFSET: limit of replaying offset (s)  
 ```

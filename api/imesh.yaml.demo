@@ -1,0 +1,42 @@
+graphName: IMesh
+
+globalLevel:
+  maxVolume: 100
+  clusterConnections:
+    - name: aws-dataprod
+      prometheusURL: http://prometheus.istio-system:9090
+      query: sum(rate(istio_requests_total[1m])) by (response_code)
+      source:
+        replacement: Total Mesh Requests
+      status:
+        dangerRegex: ^5..$
+        label: response_code
+        warningRegex: ^4..$
+      target:
+        replacement: cluster1
+
+clusterLevel:
+  - cluster: cluster1
+    maxVolume: 100
+    serviceConnections:
+      - name: aws-dataprod
+        notices:
+          - name: HighErrorRate
+            severityThreshold:
+              error: 0.05
+              warning: 0.01
+            statusType: danger
+            title: "[{{ .value }}] High Error Rate"
+            promQL: "sum(rate(istio_requests_total{destination_service='{{ .service }}',response_code=~'{{ .code }}'}[1m])) by (source_workload,source_workload_namespace,destination_service,response_code)"
+        prometheusURL: http://prometheus.istio-system:9090
+        query: sum(rate(istio_requests_total[1m])) by (source_workload,source_workload_namespace,destination_service,response_code)
+        source:
+          label: source_workload,source_workload_namespace
+          class: default
+        status:
+          dangerRegex: ^5..$
+          label: response_code
+          warningRegex: ^4..$
+        target:
+          label: destination_service
+          class: default

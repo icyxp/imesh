@@ -3,20 +3,20 @@
 'use strict';
 
 import 'bootstrap';
-import './bootstrap.css';
 import React from 'react'; // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom';
 import WebFont from 'webfontloader';
 import './app.css';
+import './bootstrap.css';
 import TrafficFlow from './components/trafficFlow';
 
-const updateURL = process.env.UPDATE_URL || "http://192.168.0.10:9091/api/graph";
+const meshAPI = process.env.IMESH_API || "http://127.0.0.1:9091/api/graph";
 const interval = Number(process.env.INTERVAL) || 3000;
 const maxReplayOffset = Number(process.env.MAX_REPLAY_OFFSET) || 10800;
 
 function fontsActive() {
   ReactDOM.render(
-    <TrafficFlow src={updateURL} interval={interval} maxReplayOffset={maxReplayOffset} />,
+    <TrafficFlow src={meshAPI} interval={interval} maxReplayOffset={maxReplayOffset} />,
     document.getElementById('traffic')
   );
 }

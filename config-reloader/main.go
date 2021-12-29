@@ -34,7 +34,7 @@ func main() {
 	a.HelpFlag.Short('h')
 
 	a.Flag("config.config-dir", "The directory contains imesh configuration file.").
-		StringVar(&cfg.configDir)
+		Default("/etc/imesh").StringVar(&cfg.configDir)
 
 	a.Flag("config.reload-url", "The url to send reloading request.").
 		StringVar(&cfg.reloadURL)
