@@ -35,8 +35,6 @@ It has 2 components:
 - Provides a sidecar application for k8s that watches config changes and reload Vistio server in runtime
 - Fits with [Istio](https://istio.io)'s metrics 
 
-![](https://github.com/nmnellis/vistio/blob/master/documentation/sample.png)
-
 ## Docker images
 
 Docker images of both `imesh-api` and `imesh-web` are available on Docker Hub.
