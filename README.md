@@ -1,4 +1,4 @@
-# IMesh [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com) [![GNU Licensed](https://img.shields.io/badge/license-GNU-blue.svg)](https://github.com/icyxp/imesh/blob/main/LICENSE)
+# IMesh [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com) [![GPL-3.0 Licensed](https://img.shields.io/badge/license-GPL3.0-blue.svg)](https://github.com/icyxp/imesh/blob/main/LICENSE)
 
   * [Features](#features)
   * [Docker images](#docker-images)
@@ -118,4 +118,4 @@ Please feel free to create an issue or pull request.
 
 ## LICENSE
 
-IMesh is released under the GUN license. See LICENSE file for details.
+IMesh is released under the GPL-3.0 license. See LICENSE file for details.
