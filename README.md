@@ -84,7 +84,7 @@ kubectl apply -f deploy/deploy-pvc.yaml
 
 ## Configuration
 
-See [configuration.md](https://github.com/nmnellis/vistio/blob/master/documentation/configuration.md) in documentation directory.
+See [configuration.md](https://github.com/icyxp/imesh/blob/main/documentation/configuration.md) in documentation directory.
 
 ## Troubleshooting
 
