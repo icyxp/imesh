@@ -111,7 +111,6 @@ func (g *generator) generateNodeConnectionSet(ctx context.Context, cfgConns []*c
 		i, cfgConn := i, cfgConn
 		group.Go(func() error {
 			value, err := g.querier.Query(groupCtx, cfgConn.PrometheusURL, cfgConn.Query, ts)
-			fmt.Println(value)
 			if err != nil {
 				g.logger.Error("Failed to send prom query",
 					zap.Error(err),
@@ -285,8 +284,8 @@ func (g *generator) generateConnections(vector prommodel.Vector, conn *config.Co
 	connections := make([]*model.Connection, 0, len(metricMap))
 	for _, m := range metricMap {
 		vconn := &model.Connection{
-			Source: m.Source,
-			Target: m.Target,
+			Source: strings.ReplaceAll(m.Source, ".svc.cluster.local", ""),
+			Target: strings.ReplaceAll(m.Target, ".svc.cluster.local", ""),
 			Metadata: &model.Metadata{
 				Streaming: 1,
 			},
